@@ -3,6 +3,7 @@
 /backend/test.pcapng
 /backend/.env
 
-/frontend/node_modules
-/frontend/dist
-/frontend/build
+/frontend/pretty-pcap/node_modules
+/frontend/pretty-pcap/package-lock.json
+/frontend/pretty-pcap/dist
+/frontend/pretty-pcap/build
