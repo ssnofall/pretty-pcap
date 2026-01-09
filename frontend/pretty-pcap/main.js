@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain, dialog } from "electron";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -21,4 +21,18 @@ function createWindow() {
 
 app.whenReady().then(() => {
   createWindow();
+});
+
+// ------------------------
+// File dialog IPC
+ipcMain.handle("dialog:openFile", async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    properties: ["openFile"],
+    filters: [{ name: "PCAP Files", extensions: ["pcap", "pcapng"] }],
+  });
+  if (canceled) {
+    return null;
+  } else {
+    return filePaths[0];
+  }
 });
