@@ -49,7 +49,7 @@ python api.py
 The API runs locally on:
 
 ```
-http://127.0.0.1:5000
+http://127.0.0.1:5050
 ```
 
 ### API Endpoint
@@ -99,6 +99,42 @@ npm start
 6. React renders the packet data in a table with visual enhancements
 
 ---
+### Packaging Mode
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Compile the backend into a single executable
+
+```bash
+pyinstaller api.py --onefile --name "pretty-pcap-parser" --icon icon.ico --version-file version.txt
+```
+
+### Bundle the backend & Build the final Electron executable
+
+```bash
+cd ../frontend/pretty-pcap
+mkdir executable
+```
+- The backend executable we compiled earlier needs to go inside:
+```bash
+/frontend/pretty-pcap/executable
+```
+
+```bash
+cd ../frontend/pretty-pcap
+npm run package # compiles the react frontend & builds the final electron executable
+```
+
+- The final Electron executable can be found here:
+```bash
+/frontend/pretty-pcap/release
+```
+
+---
 
 ## Disclaimer
 
@@ -108,7 +144,7 @@ Pretty PCAP is a learning-focused and experimental project. It is not intended t
 
 ## License
 
-This project is open source. Feel free to use, modify, and distribute as needed.
+This project is licensed under the GNU General Public License
 
 ---
 

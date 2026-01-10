@@ -1,5 +1,8 @@
 /backend/parser/__pycache__
 /backend/venv
+/backend/build
+/backend/dist
+/backend/pretty-pcap-backend.spec
 /backend/test.pcapng
 /backend/.env
 
@@ -7,4 +10,6 @@
 /frontend/pretty-pcap/package-lock.json
 /frontend/pretty-pcap/dist
 /frontend/pretty-pcap/build
+/frontend/pretty-pcap/release
 /frontend/test_notes.txt
+/frontend/pretty-pcap/executable
