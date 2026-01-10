@@ -10,12 +10,12 @@ let executableProcess = null;
 
 function getExecutablePath() {
   if (process.env.NODE_ENV === "development") {
-    return path.join(__dirname, "executable", "pretty-pcap-backend");
+    return path.join(__dirname, "executable", "pretty-pcap-parser");
   } else {
     if (process.platform === "win32") {
-      return path.join(process.resourcesPath, "executable", "pretty-pcap-backend.exe");
+      return path.join(process.resourcesPath, "executable", "pretty-pcap-parser.exe");
     } else {
-      return path.join(process.resourcesPath, "executable", "pretty-pcap-backend");
+      return path.join(process.resourcesPath, "executable", "pretty-pcap-parser");
     }
   }
 }

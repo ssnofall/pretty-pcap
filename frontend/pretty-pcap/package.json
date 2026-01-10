@@ -17,6 +17,7 @@
   "build": {
     "appId": "com.prettypcap.app",
     "productName": "PrettyPCAP",
+    "copyright": "Copyright © 2026 Snofall",
     "files": [
       "dist/**/*",
       "main.js",

@@ -110,8 +110,9 @@ pip install -r requirements.txt
 ### Compile the backend into a single executable
 
 ```bash
-pyinstaller --onefile api.py --name pretty-pcap-backend
+pyinstaller api.py --onefile --name "pretty-pcap-parser" --icon icon.ico --version-file version.txt
 ```
+
 ### Bundle the backend & Build the final Electron executable
 
 ```bash
@@ -143,7 +144,7 @@ Pretty PCAP is a learning-focused and experimental project. It is not intended t
 
 ## License
 
-This project is open source. Feel free to use, modify, and distribute as needed.
+This project is licensed under the GNU General Public License
 
 ---
 
