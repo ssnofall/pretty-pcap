@@ -49,7 +49,7 @@ python api.py
 The API runs locally on:
 
 ```
-http://127.0.0.1:5000
+http://127.0.0.1:5050
 ```
 
 ### API Endpoint
@@ -97,6 +97,36 @@ npm start
 4. The file path is sent to the Flask API
 5. The backend parses the file and returns packet data as JSON
 6. React renders the packet data in a table with visual enhancements
+
+---
+### Packaging Mode
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Compile the backend into a single executable
+
+```bash
+pyinstaller --onefile api.py --name pretty-pcap-backend
+```
+### Bundle the backend & Build the final Electron executable
+
+```bash
+cd ../frontend/pretty-pcap
+mkdir executable
+```
+- The backend executable we compiled earlier needs to go inside:
+```bash
+/frontend/pretty-pcap/executable
+```
+
+```bash
+cd ../frontend/pretty-pcap
+npm run package # compiles the react frontend & builds the final electron executable
+```
 
 ---
 
