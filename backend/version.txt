@@ -16,7 +16,7 @@ VSVersionInfo(
           '040904B0',
           [
             StringStruct('CompanyName', 'Snofall'),
-            StringStruct('FileDescription', 'A user friendly PCAP file analyzer'),
+            StringStruct('FileDescription', 'The backend for PrettyPCAP; API that parses the PCAP files.'),
             StringStruct('FileVersion', '1.0.0'),
             StringStruct('InternalName', 'pretty-pcap-parser'),
             StringStruct('OriginalFilename', 'pretty-pcap-parser.exe'),
