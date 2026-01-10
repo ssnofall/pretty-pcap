@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain, dialog } from "electron";
 import path from "path";
 import { fileURLToPath } from "url";
-import { spawn } from "child_process";
+import { spawn, exec } from "child_process";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,45 +9,55 @@ const __dirname = path.dirname(__filename);
 let executableProcess = null;
 
 function getExecutablePath() {
-  // In development, use local executable
-  // In production, use bundled executable from resources
-  if (process.env.NODE_ENV === 'development') {
-    return path.join(__dirname, 'executable', 'pretty-pcap-backend');
+  if (process.env.NODE_ENV === "development") {
+    return path.join(__dirname, "executable", "pretty-pcap-backend");
   } else {
-    // For production builds - adjust based on your platform
-    if (process.platform === 'win32') {
-      return path.join(process.resourcesPath, 'executable', 'pretty-pcap-backend.exe');
+    if (process.platform === "win32") {
+      return path.join(process.resourcesPath, "executable", "pretty-pcap-backend.exe");
     } else {
-      return path.join(process.resourcesPath, 'executable', 'pretty-pcap-backend');
+      return path.join(process.resourcesPath, "executable", "pretty-pcap-backend");
     }
   }
 }
 
 function startExecutable() {
   const execPath = getExecutablePath();
-  
+
+  // detached:true ensures a separate process group for proper termination
   executableProcess = spawn(execPath, [], {
-    // Add any arguments or options your executable needs
+    detached: true,
+    stdio: "inherit", // optional: pipe stdout/stderr to Electron console
   });
 
-  executableProcess.stdout.on('data', (data) => {
-    console.log(`Executable stdout: ${data}`);
-  });
-
-  executableProcess.stderr.on('data', (data) => {
-    console.error(`Executable stderr: ${data}`);
-  });
-
-  executableProcess.on('close', (code) => {
+  executableProcess.on("close", (code) => {
     console.log(`Executable process exited with code ${code}`);
+  });
+
+  executableProcess.on("error", (err) => {
+    console.error("Failed to start backend:", err);
   });
 }
 
 function stopExecutable() {
-  if (executableProcess) {
-    executableProcess.kill();
-    executableProcess = null;
+  if (!executableProcess) return;
+
+  const pid = executableProcess.pid;
+
+  if (process.platform === "win32") {
+    // Windows: kill process tree
+    exec(`taskkill /PID ${pid} /T /F`, (err) => {
+      if (err) console.error("Failed to kill backend:", err);
+    });
+  } else {
+    // Unix/macOS: kill entire process group
+    try {
+      process.kill(-pid, "SIGTERM");
+    } catch (err) {
+      console.error("Failed to kill backend:", err);
+    }
   }
+
+  executableProcess = null;
 }
 
 function createWindow() {
@@ -64,28 +74,22 @@ function createWindow() {
     },
   });
 
-  // Load from dev server in development, from dist in production
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === "development") {
     win.loadURL("http://localhost:5173");
   } else {
-    win.loadFile(path.join(__dirname, 'dist', 'index.html'));
+    win.loadFile(path.join(__dirname, "dist", "index.html"));
   }
 }
 
+// Start backend and window
 app.whenReady().then(() => {
   startExecutable();
   createWindow();
 });
 
-app.on('before-quit', () => {
+// Cleanly stop backend on quit
+app.on("will-quit", () => {
   stopExecutable();
-});
-
-app.on('window-all-closed', () => {
-  stopExecutable();
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
 });
 
 // File dialog IPC
@@ -94,9 +98,13 @@ ipcMain.handle("dialog:openFile", async () => {
     properties: ["openFile"],
     filters: [{ name: "PCAP Files", extensions: ["pcap", "pcapng"] }],
   });
-  if (canceled) {
-    return null;
-  } else {
-    return filePaths[0];
+
+  return canceled ? null : filePaths[0];
+});
+
+// Optional: macOS behavior for re-opening app
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
   }
 });
