@@ -116,7 +116,8 @@ pyinstaller api.py --onefile --name "pretty-pcap-parser" --icon icon.ico --versi
 ### Bundle the backend & Build the final Electron executable
 
 ```bash
-cd ../frontend/pretty-pcap
+cd /frontend/pretty-pcap
+npm install  # install dependecies if you havent already
 mkdir executable
 ```
 - The backend executable we compiled earlier needs to go inside:
@@ -125,7 +126,7 @@ mkdir executable
 ```
 
 ```bash
-cd ../frontend/pretty-pcap
+cd /frontend/pretty-pcap
 npm run package # compiles the react frontend & builds the final electron executable
 ```
 
