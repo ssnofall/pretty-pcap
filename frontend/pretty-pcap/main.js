@@ -88,7 +88,6 @@ app.on('window-all-closed', () => {
   }
 });
 
-// ------------------------
 // File dialog IPC
 ipcMain.handle("dialog:openFile", async () => {
   const { canceled, filePaths } = await dialog.showOpenDialog({
