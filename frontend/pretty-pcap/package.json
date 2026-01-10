@@ -1,8 +1,8 @@
 {
   "name": "pretty-pcap",
   "private": true,
-  "version": "0.0.0",
-  "description": "PCAP file analyzer and viewer",
+  "version": "1.0.0",
+  "description": "A user friendly PCAP file analyzer",
   "author": "Snofall",
   "main": "main.js",
   "type": "module",
