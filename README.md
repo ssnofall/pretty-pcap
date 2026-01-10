@@ -128,6 +128,11 @@ cd ../frontend/pretty-pcap
 npm run package # compiles the react frontend & builds the final electron executable
 ```
 
+- The final Electron executable can be found here:
+```bash
+/frontend/pretty-pcap/release
+```
+
 ---
 
 ## Disclaimer
