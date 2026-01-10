@@ -2,14 +2,50 @@
   "name": "pretty-pcap",
   "private": true,
   "version": "0.0.0",
+  "description": "PCAP file analyzer and viewer",
+  "author": "Snofall",
   "main": "main.js",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "NODE_ENV=development vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "electron ."
+    "start": "NODE_ENV=development electron .",
+    "package": "npm run build && electron-builder"
+  },
+  "build": {
+    "appId": "com.prettypcap.app",
+    "productName": "PrettyPCAP",
+    "files": [
+      "dist/**/*",
+      "main.js",
+      "preload.js"
+    ],
+    "extraResources": [
+      {
+        "from": "executable",
+        "to": "executable",
+        "filter": ["**/*"]
+      }
+    ],
+    "asarUnpack": [
+      "executable/**/*"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.developer-tools"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Development"
+    }
   },
   "dependencies": {
     "react": "^19.2.0",
@@ -21,6 +57,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "electron": "^39.2.7",
+    "electron-builder": "^25.1.8",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
