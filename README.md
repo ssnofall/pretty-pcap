@@ -2,6 +2,11 @@
 
 Pretty PCAP is a desktop application for viewing `.pcap` and `.pcapng` files in a clean, modern, and user-friendly way. It aims to provide **all the packet data you would expect from a traditional packet analyzer**, while presenting it in a visually appealing and easy-to-navigate interface.
 
+[![Python](https://img.shields.io/badge/Python-gray?logo=python&logoColor=3776AB)](https://www.python.org/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-gray?logo=javascript&logoColor=F7DF1E)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![React](https://img.shields.io/badge/React-gray?logo=react&logoColor=61DAFB)](https://react.dev/)
+[![Electron](https://img.shields.io/badge/Electron-gray?logo=electron&logoColor=47848F)](https://www.electronjs.org/)
+
 <img src="img1.png" alt="Pretty Pcap Preview" width="800"/>
 <img src="img2.png" alt="Pretty Pcap Stats Preview" width="800"/>
 
